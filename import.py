@@ -5,7 +5,7 @@ from sklearn.tree import plot_tree
 
 model = pickle.load(open('model_hepatitis.sav', 'rb'))
 
-st.title('RESIKO KEMATIAN PENYAKIT HEPATITIS')
+st.title('RESIKO KEMATIAN PENYAKIT HEPATITIS DENGAN ALGORITMA DECISION TREE')
 
 age = st.text_input('Usia Anda')
 sex = st.selectbox('Jenis Kelamin', ['Laki Laki', 'Perempuan'])
