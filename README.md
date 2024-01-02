@@ -177,10 +177,3 @@ kita bisa lihat hasil visual dari algoritma tersebut
 [Klik disini](https://uasmld3.streamlit.app/)
 ![image](https://github.com/fitriades/uasml/assets/149255008/3f496ef9-45ba-452b-bf4b-377c2f40e583)
 
-
-**---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
-
