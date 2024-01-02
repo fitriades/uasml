@@ -55,34 +55,129 @@ Data di dapatkan dari kaggle dengan dataset tentang penyakit hepatitis dan resik
 - histology = histology liver si pasien, bertipe boolean
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Pertama kita import library yang dibutuhkan
+```bash
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn import tree
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from plotly.subplots import make_subplots
+import pickle
+```
+selanjutnya kita import dataset nya
+```bash
+df = pd.read_csv("/content/hepatitis-data/hepatitis_csv.csv")
+```
+untuk lebih lengkap nya pada bagian ini bisa di cek pada bagian Jupyter Notebook pada repository ini
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Selanjutnya kita bisa lakukan visualisasi data, contoh kita ingin mehilat jumlah kematiannya
+```bash
+class_counts = df['class'].value_counts()
+plt.figure(figsize=(5, 5))
+plt.pie(class_counts, labels=['Lived', 'Died'], autopct='%1.1f%%', colors=['skyblue', 'lightcoral'])
+plt.title('Class Distribution')
+plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
+
+# Show the pie chart
+plt.show()
+```
+![image](https://github.com/fitriades/uasml/assets/149255008/08de6428-086d-4d8f-8b40-1b16084d3626)
+
+Kita juga bisa lihat penyebaran usia nya
+```bash
+plt.figure(figsize=(20, 10))
+sns.displot(df.age, bins=40)
+```
+![image](https://github.com/fitriades/uasml/assets/149255008/43ac254b-3b61-4fdf-a939-a5e94f689d12)
+
+selanjuta kita lihat tingkat bilirubin tertinggi di angka berapa
+```bash
+sns.kdeplot(df.bilirubin)
+```
+![image](https://github.com/fitriades/uasml/assets/149255008/0c6fd265-da74-4f1d-bfd3-43e2561d7830)
+
+untuk lebih detailnya bisa di cek pada jupyter notebook pada repository ini.
+
+Selanjutnya kita rubah kolom yang bertipe object dan boolean
+```bash
+cat_cols = df.select_dtypes(include = ['object', 'bool']).columns.to_list()
+le = LabelEncoder()
+
+for i in cat_cols:
+    le.fit(df[i])
+    df[i] = le.transform(df[i])
+```
+Kemudian jika sudah kita tinggal menentukan feature dan label
+
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Kita tentukan feature dan lable terlebih dahulu
+```bash
+X = df.drop('class',axis=1)
+y = df['class']
+```
+Lalu kita beri ketentuan untuk data test dan data train nya
+```bash
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.3, random_state=0)
+```
+kita standarisasi data nya terlebih dahulu
+```bash
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+lalu kita masukan algoritma decision tree kedalam modelnya
+```bash
+dtc = DecisionTreeClassifier(
+    ccp_alpha=0.0, class_weight=None, criterion='entropy',
+    max_depth=4, max_features=None, max_leaf_nodes=None,
+    min_impurity_decrease=0.0, min_samples_leaf=1,
+    min_samples_split=2, min_weight_fraction_leaf=0,
+    random_state=42, splitter='best'
+)
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+model = dtc.fit(X_train, y_train)
+
+y_pred = dtc.predict(X_test)
+
+dtc_acc = accuracy_score(y_test, dtc.predict(X_test))
+
+print(f"Training Akurasi = {accuracy_score(y_train, dtc.predict(X_train))}")
+print(f"Test Akurasi = {dtc_acc} \n")
+```
+```bash
+Training Akurasi = 0.9351851851851852
+Test Akurasi = 0.8085106382978723
+```
+Kita bisa lihat tingkat akurasi nya
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Kitalakukan penilaian dengan konfusion matrix
+```bash
+confusion_mat = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(6, 6))
+sns.heatmap(confusion_mat, annot=True, fmt="d", cmap="Blues", xticklabels=dtc.classes_, yticklabels=dtc.classes_)
+plt.title('Confusion Matrix')
+plt.xlabel('Predictions')
+plt.ylabel('Actual')
+plt.show()
+```
+![image](https://github.com/fitriades/uasml/assets/149255008/b5bb232f-91f1-423f-a815-aadeafd88165)
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+kita bisa lihat hasil visual dari algoritma tersebut
+![image](https://github.com/fitriades/uasml/assets/149255008/077fd6e2-b501-4355-8209-c630702d5074)
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
 
 ## Deployment
-pada bagian ini anda memberikan link project yang diupload melalui streamlit share. boleh ditambahkan screen shoot halaman webnya.
+[Klik disini](https://uasmld3.streamlit.app/)
+![image](https://github.com/fitriades/uasml/assets/149255008/3f496ef9-45ba-452b-bf4b-377c2f40e583)
+
 
 **---Ini adalah bagian akhir laporan---**
 
