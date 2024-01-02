@@ -16,7 +16,6 @@ Bagian laporan ini mencakup:
 ### Problem Statements
 
 - Resiko kematian pasien penyakit hepatitis
-
  
 ### Goals
 
