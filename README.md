@@ -1,61 +1,58 @@
 # Laporan Proyek Machine Learning
-### Nama :
-### Nim :
-### Kelas :
+### Nama : Fitria Desiyani
+### Nim : 211351057
+### Kelas : Pagi B
 
 ## Domain Proyek
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-  
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
+Pengidap penyakit hepatitis sejatinya beresiko untuk meninggal dunia dan survive. Pada project ini pengidap hepatitis bisa melakukan perhitungan apakah beresiko untuk meninggal dunia atau punya kesempatan untuk survive.
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
+Data menunjukan untuk gejala dan penyakit hepatitis berdasarkan beberapa pertanyaan baik itu gender sspesifik dan pengaruh pengobatan lainya dapat menjadikan penyakit itu memiliki resiko kematian. Maka dari itu, dengan algoritma svm linear saya coba klasifikasikan apakah penyakit hepatitis yang di derita si pasien beresiko menyebabkan kematian atau tidak.
 
 Bagian laporan ini mencakup:
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Resiko kematian pasien penyakit hepatitis
 
+ 
 ### Goals
 
-Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
-
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
+- Meningkatkan kewaspadaan terhadap resiko kematian penyakit hepatitis
+- Sebagai early warning untuk para pengidap penyakit hepatitis
 
     ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+    - Dilakukanya proses klasifikasi untuk pengidap penyakit hepatitis
+    - Menggunakan algoritma svm linear untuk proses klasifikasi
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. dataset wajib menggunakan [kaggle](https://www.kaggle.com/) dan **atribut yang digunakan minimal 8 atribut**. Sertakan juga sumber atau tautan untuk mengunduh dataset.<br> 
+Data di dapatkan dari kaggle dengan dataset tentang penyakit hepatitis dan resiko kematian nya.
 
-Contoh: [Heart Failure Prediction Dataset](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction).
+[Hepatitis Data](https://www.kaggle.com/datasets/codebreaker619/hepatitis-data/).
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
 
-### Variabel-variabel pada Heart Failure Prediction Dataset adalah sebagai berikut:
-- Age : merupakan umur pasien dalam satuan tahun.
-- Sex : merupakan jenis kelamin pasien meliputi [M: Male, F: Female].
-- dst
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+### Variabel-variabel pada Hepatitis Data Dataset adalah sebagai berikut:
+- age = usia dari si pengidap hepatitis, bertipe integer
+- sex = jenis kelamin si pengidap hepatitis, bertipe boolean
+- steroid = apakah si pasien sedang mengkonsumsi steroid, bertipe boolean
+- antivirals = apakah si pasien sedang mengkonsumsi obat yang bersifat antivirus, bertipe boolean
+- fatigue = apakah si pasien sering mengalami kelelahan, bertipe boolean
+- malaise = apakah si pasien juga mengidap malaise, bertipe boolean
+- anorexia = apakah si pasien juga mengidap anorexia, bertipe boolean
+- liver_big = apakah si pasien mengalami pembengkakan pada liver, bertipe boolean
+- liver_firm = apakash si pasien mengalami pengerasan pada liver, bertipe boolean
+- spleen_palpable = apakah si dapat merasakan limpanya secara jelas, bertipe boolean
+- spiders = apakah si pasien mengalami spider nevus, bertipe boolean
+- ascites = apakah si pasien mengalami ascites, bertipe boolean
+- varices = apakah si pasien memiliki varises, bertipe boolean
+- bilirubin = jumlah kadar bilirubin si pasien, bertipe float
+- alk_phosphate = kandungan alkalin dalah darah si pasien, bertipe float
+- sgot = kandungan Serum Glutamic Oxaloacetic Transaminase si pasien, bertipe float
+- albumin = tingkat albumin dalam tubuh si pasien, bertipe float
+- protime = Jumlah waktu untuk Prothrombin time dalam tubuh si pasien, bertipe float
+- histology = histology liver si pasien, bertipe boolean
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
